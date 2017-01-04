@@ -7,9 +7,13 @@ package com.pensar.tabkids.appstore.makeaword;
 public class CardViewContent {
 
     private String imageName;
+    private int image;
 
-    public CardViewContent(){
 
+
+    public CardViewContent(String imageName, int image){
+        this.imageName= imageName;
+        this.image = image;
     }
 
     public CardViewContent(String imageName){
@@ -24,6 +28,14 @@ public class CardViewContent {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
 }

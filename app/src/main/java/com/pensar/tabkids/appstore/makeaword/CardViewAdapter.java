@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,23 +23,25 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         this.contentList=contentList;
     }
 
+
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_layout,parent,false);
-        return null;
+        return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         CardViewContent cardViewContent= contentList.get(position);
         holder.imageName.setText(cardViewContent.getImageName());
-
+        holder.image.setImageBitmap(CommonUtil.getDataFromAsserts(mContext,cardViewContent.getImageName()));
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return contentList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
