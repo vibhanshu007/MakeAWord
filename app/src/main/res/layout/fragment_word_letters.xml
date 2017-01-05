@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pensar.tabkids.appstore.makeaword.FourLetters">
+    tools:context="com.pensar.tabkids.appstore.makeaword.WordLetters">
 
     <include layout="@layout/recycler_view"></include>
+
 
 </FrameLayout>

@@ -2,6 +2,7 @@ package com.pensar.tabkids.appstore.makeaword;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         this.contentList=contentList;
     }
 
-
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_layout,parent,false);
@@ -35,7 +34,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         CardViewContent cardViewContent= contentList.get(position);
         holder.imageName.setText(cardViewContent.getImageName());
-        holder.image.setImageBitmap(CommonUtil.getDataFromAsserts(mContext,cardViewContent.getImageName()));
+        Log.e("bitmap",""+CommonUtil.getDataFromAsserts(mContext,cardViewContent.getImageName()));
+        holder.image.setImageBitmap(CommonUtil.getDataFromAsserts(mContext,cardViewContent.getImageName()+".png"));
 
     }
 

@@ -1,10 +1,13 @@
 package com.pensar.tabkids.appstore.makeaword;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by root on 3/1/17.
  */
 
-public class CardViewContent {
+public class CardViewContent implements Parcelable{
 
     private String imageName;
     private int image;
@@ -21,6 +24,34 @@ public class CardViewContent {
         this.imageName=imageName;
 
     }
+
+    protected CardViewContent(Parcel in) {
+        imageName = in.readString();
+        image = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(imageName);
+        dest.writeInt(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<CardViewContent> CREATOR = new Creator<CardViewContent>() {
+        @Override
+        public CardViewContent createFromParcel(Parcel in) {
+            return new CardViewContent(in);
+        }
+
+        @Override
+        public CardViewContent[] newArray(int size) {
+            return new CardViewContent[size];
+        }
+    };
 
     public String getImageName() {
         return imageName;

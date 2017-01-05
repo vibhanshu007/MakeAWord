@@ -2,6 +2,8 @@ package com.pensar.tabkids.appstore.makeaword;
 
 
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,31 +16,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ThreeLetters extends Fragment {
+public class WordLetters extends Fragment {
 
     private RecyclerView recyclerView;
     CardViewAdapter cardViewAdapter;
     List<CardViewContent> cardViewContentList;
     GridSpacingItemDecoration gridSpacingItemDecoration;
+
+    public static WordLetters getInstance(List<CardViewContent> cardViewContentList) {
+
+        WordLetters wordLetters =new WordLetters();
+        Bundle bundle=new Bundle(1);
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) cardViewContentList);
+        wordLetters.setArguments(bundle);
+        return wordLetters;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cardViewContentList=getArguments().getParcelableArrayList("list");
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root=inflater.inflate(R.layout.fragment_three_letters, container, false);
+        View root=inflater.inflate(R.layout.fragment_word_letters, container, false);
         // Inflate the layout for this fragment
         recyclerView = (RecyclerView)root.findViewById(R.id.recycler_view);
-        cardViewContentList = new ArrayList<>();
-        cardViewContentList.add(new CardViewContent("apple"));
-        cardViewContentList.add(new CardViewContent("bell"));
-        cardViewContentList.add(new CardViewContent("car"));
-        cardViewContentList.add(new CardViewContent("dice"));
-        cardViewContentList.add(new CardViewContent("earth"));
-        cardViewContentList.add(new CardViewContent("fish"));
-        cardViewContentList.add(new CardViewContent("gift"));
-        cardViewContentList.add(new CardViewContent("heart"));
+
+
         cardViewAdapter = new CardViewAdapter(getContext(),cardViewContentList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(getContext(),2,10,true));
+        //recyclerView.addItemDecoration(new GridSpacingItemDecoration(getContext(),2,10,true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cardViewAdapter);
 
