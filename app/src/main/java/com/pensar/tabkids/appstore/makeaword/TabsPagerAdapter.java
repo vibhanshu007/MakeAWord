@@ -14,23 +14,29 @@ import java.util.List;
 public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 
     int noOfTabs;
-    List<CardViewContent> cardViewContentList;
-    public TabsPagerAdapter(FragmentManager fm , int NoOfTabs) {
+    List<CardViewContent> threeLettersContent;
+    List<CardViewContent> fourLettersContentList;
+        public TabsPagerAdapter(FragmentManager fm , int NoOfTabs) {
         super(fm);
         this.noOfTabs= NoOfTabs;
-        cardViewContentList = new ArrayList<CardViewContent>();
-        cardViewContentList.add(new CardViewContent("apple"));
-        cardViewContentList.add(new CardViewContent("bell"));
-        cardViewContentList.add(new CardViewContent("car"));
-        cardViewContentList.add(new CardViewContent("dice"));
-        cardViewContentList.add(new CardViewContent("earth"));
-        cardViewContentList.add(new CardViewContent("fish"));
-        cardViewContentList.add(new CardViewContent("gift"));
-        cardViewContentList.add(new CardViewContent("heart"));
-        cardViewContentList.add(new CardViewContent("ice"));
-        cardViewContentList.add(new CardViewContent("joker"));
-        cardViewContentList.add(new CardViewContent("knife"));
-        cardViewContentList.add(new CardViewContent("lion"));
+        threeLettersContent = new ArrayList<CardViewContent>();
+        fourLettersContentList = new ArrayList<CardViewContent>();
+            //three letter word
+        threeLettersContent.add(new CardViewContent("car"));
+        threeLettersContent.add(new CardViewContent("ice"));
+
+            //four letter word
+
+            fourLettersContentList.add(new CardViewContent("apple"));
+            fourLettersContentList.add(new CardViewContent("bell"));
+            fourLettersContentList.add(new CardViewContent("dice"));
+            fourLettersContentList.add(new CardViewContent("earth"));
+            fourLettersContentList.add(new CardViewContent("fish"));
+            fourLettersContentList.add(new CardViewContent("gift"));
+            fourLettersContentList.add(new CardViewContent("heart"));
+            fourLettersContentList.add(new CardViewContent("joker"));
+            fourLettersContentList.add(new CardViewContent("knife"));
+            fourLettersContentList.add(new CardViewContent("lion"));
 
     }
 
@@ -40,11 +46,11 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
         WordLetters wordLetters;
         switch (position){
             case 0:
-                 wordLetters = WordLetters.getInstance(cardViewContentList);
+                 wordLetters = WordLetters.getInstance(threeLettersContent);
                 return wordLetters;
 
             case 1:
-                 wordLetters = WordLetters.getInstance(cardViewContentList);
+                 wordLetters = WordLetters.getInstance(fourLettersContentList);
                 return wordLetters;
 
         }

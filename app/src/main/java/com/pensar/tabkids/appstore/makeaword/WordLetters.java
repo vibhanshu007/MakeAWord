@@ -20,14 +20,14 @@ public class WordLetters extends Fragment {
 
     private RecyclerView recyclerView;
     CardViewAdapter cardViewAdapter;
-    List<CardViewContent> cardViewContentList;
+    List<CardViewContent> threeLettersContent;
     GridSpacingItemDecoration gridSpacingItemDecoration;
 
-    public static WordLetters getInstance(List<CardViewContent> cardViewContentList) {
+    public static WordLetters getInstance(List<CardViewContent> threeLettersContent) {
 
         WordLetters wordLetters =new WordLetters();
         Bundle bundle=new Bundle(1);
-        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) cardViewContentList);
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) threeLettersContent);
         wordLetters.setArguments(bundle);
         return wordLetters;
     }
@@ -35,7 +35,7 @@ public class WordLetters extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cardViewContentList=getArguments().getParcelableArrayList("list");
+        threeLettersContent=getArguments().getParcelableArrayList("list");
 
     }
 
@@ -47,7 +47,7 @@ public class WordLetters extends Fragment {
         recyclerView = (RecyclerView)root.findViewById(R.id.recycler_view);
 
 
-        cardViewAdapter = new CardViewAdapter(getContext(),cardViewContentList);
+        cardViewAdapter = new CardViewAdapter(getContext(),threeLettersContent);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(layoutManager);
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(getContext(),2,10,true));
