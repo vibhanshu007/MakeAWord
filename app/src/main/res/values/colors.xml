@@ -9,4 +9,5 @@
     <color name="lightOrange2">#FFE0B2</color>
     <color name="darkOrange">#FF5722</color>
     <color name="selector">#E6EE9C</color>
+    <color name="hilight">#7E57C2</color>
 </resources>

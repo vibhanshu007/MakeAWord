@@ -43,12 +43,14 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         holder.image.setImageBitmap(CommonUtil.getDataFromAsserts(mContext, cardViewContent.getImageName() + ".png"));
         holder.itemView.setSelected(selectedPosition == position);
 
+
+
         if (!selectorList.contains(position)) {
             // view not selected
-            holder.itemView.setBackgroundColor(Color.LTGRAY);
+            holder.itemView.setBackgroundColor(Color.WHITE);
         } else{
             // view is selected
-            holder.itemView.setBackgroundColor(Color.CYAN);
+            holder.itemView.setBackgroundResource(R.color.hilight);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +58,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
             public void onClick(View view) {
 
                 notifyItemChanged(position);
-                /*selectedPosition =getSelectedPosition();
+
+                selectedPosition =getSelectedPosition();
                 view.setBackgroundResource(R.drawable.selector);
-                notifyItemChanged(position);*/
+                notifyItemChanged(position);
+
 
                 view.setBackgroundColor(Color.CYAN);
 
@@ -69,15 +73,19 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
                 }else {
                     int oldSelected = selectorList.get(0);
                     selectorList.clear();
+
                     selectorList.add(position);
+
                     // we do not notify that an item has been selected
                     // because that work is done here.  we instead send
                     // notifications for items to be deselected
                     notifyItemChanged(oldSelected);
+                    //notifyItemInserted(position);
                 }
                 Log.e("selected Value","*************"+selectorList.toString());
             }
         });
+
 
     }
 

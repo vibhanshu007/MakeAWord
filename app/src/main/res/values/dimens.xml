@@ -7,4 +7,5 @@
     <dimen name="card_corner_radius">5dp</dimen>
     <dimen name="three_dp">3dp</dimen>
     <dimen name="five_dp">5dp</dimen>
+    <dimen name="twintyFive">25dp</dimen>
 </resources>

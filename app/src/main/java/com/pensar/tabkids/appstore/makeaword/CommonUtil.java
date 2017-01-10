@@ -31,9 +31,7 @@ public class CommonUtil {
     }
 
     public static BitmapDrawable getBitmapDrawableFromAsserts(Context context,String filepath){
-
         return new BitmapDrawable(context.getResources(),getDataFromAsserts(context,filepath));
-
 
     }
 }
