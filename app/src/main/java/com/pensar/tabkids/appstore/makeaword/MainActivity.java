@@ -6,20 +6,41 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity  {
 
-
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView.Adapter adapter;
+    Toolbar toolbar;
+    ArrayList<CardViewContent> cardViewContents = new ArrayList<>();
+    boolean is_in_actionMode= false;
+    TextView counterTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new CardViewAdapter(MainActivity.this,cardViewContents);
+        recyclerView.setAdapter(adapter);
+        counterTextView = (TextView) findViewById(R.id.counterTextView);
+        counterTextView.setVisibility(View.GONE);
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layOut);
         tabLayout.addTab(tabLayout.newTab().setText("Three Letters"));

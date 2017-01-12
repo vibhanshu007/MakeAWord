@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
     private List<CardViewContent> contentList;
     private final List<Integer> selectorList = new ArrayList<Integer>();
     private int selectedPosition ;
+    MainActivity mainActivity;
 
     public CardViewAdapter(Context mContext, List<CardViewContent> contentList){
         this.mContext= mContext;
@@ -43,7 +45,15 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         holder.image.setImageBitmap(CommonUtil.getDataFromAsserts(mContext, cardViewContent.getImageName() + ".png"));
         holder.itemView.setSelected(selectedPosition == position);
 
+        if(!mainActivity.is_in_actionMode){
+            holder.checkBox.setVisibility(View.GONE);
+        }else {
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.checkBox.setChecked(false);
+        }
 
+
+/*
 
         if (!selectorList.contains(position)) {
             // view not selected
@@ -58,7 +68,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
             public void onClick(View view) {
 
                 notifyItemChanged(position);
-
                 selectedPosition =getSelectedPosition();
                 view.setBackgroundResource(R.drawable.selector);
                 notifyItemChanged(position);
@@ -85,6 +94,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
                 Log.e("selected Value","*************"+selectorList.toString());
             }
         });
+*/
 
 
     }
@@ -97,11 +107,13 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
 
         public TextView imageName;
         public ImageView image;
+        public CheckBox checkBox;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             imageName = (TextView) itemView.findViewById(R.id.card_text);
             image = (ImageView) itemView.findViewById(R.id.card_image);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
         }
     }
 
