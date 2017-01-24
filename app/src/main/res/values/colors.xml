@@ -10,4 +10,7 @@
     <color name="darkOrange">#FF5722</color>
     <color name="selector">#E6EE9C</color>
     <color name="hilight">#7E57C2</color>
+    <color name="toolbarChangePrimary">#2196F3</color>
+    <color name="toolbarChangePrimaryDark">#0D47A1</color>
+    <color name="toolbarChangeAccent">#64B5F6</color>
 </resources>

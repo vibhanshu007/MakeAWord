@@ -32,13 +32,13 @@
                android:layout_height="wrap_content"
                android:textSize="@dimen/text_size_15" />
 
+       </LinearLayout>
+
            <CheckBox
                android:id="@+id/checkbox_2"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="bottom|right"/>
-
-       </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

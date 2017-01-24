@@ -130,6 +130,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         public boolean onLongClick(View view) {
             Log.e("Long click is working","#######");
             ((MainActivity)context).toolbar.getMenu().clear();
+            ((MainActivity)context).setTheme(R.style.Theme_Dark);
             ((MainActivity)context).toolbar.inflateMenu(R.menu.toolbar_layout);
             ((MainActivity)context).counterTextView.setVisibility(View.VISIBLE);
             ((MainActivity)context).is_in_actionMode=true;
