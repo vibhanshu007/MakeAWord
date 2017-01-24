@@ -11,17 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class WordLetters extends Fragment {
+public class WordLetters extends Fragment  {
 
     private RecyclerView recyclerView;
     CardViewAdapter cardViewAdapter;
     List<CardViewContent> threeLettersContent;
     GridSpacingItemDecoration gridSpacingItemDecoration;
+
 
     public static WordLetters getInstance(List<CardViewContent> threeLettersContent) {
 
@@ -46,20 +46,18 @@ public class WordLetters extends Fragment {
         // Inflate the layout for this fragment
         recyclerView = (RecyclerView)root.findViewById(R.id.recycler_view);
 
-
         cardViewAdapter = new CardViewAdapter(getContext(),threeLettersContent);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(layoutManager);
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(getContext(),2,10,true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cardViewAdapter);
-
-
         return root;
     }
 
         private void prepareAlbums() {
 
     }
+
 
 }

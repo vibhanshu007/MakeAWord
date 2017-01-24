@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +19,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity  {
 
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView.Adapter adapter;
+
     Toolbar toolbar;
     ArrayList<CardViewContent> cardViewContents = new ArrayList<>();
     boolean is_in_actionMode= false;
     TextView counterTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,20 +32,13 @@ public class MainActivity extends AppCompatActivity  {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-
-        adapter = new CardViewAdapter(MainActivity.this,cardViewContents);
-        recyclerView.setAdapter(adapter);
-        counterTextView = (TextView) findViewById(R.id.counterTextView);
-        counterTextView.setVisibility(View.GONE);
-
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layOut);
         tabLayout.addTab(tabLayout.newTab().setText("Three Letters"));
         tabLayout.addTab(tabLayout.newTab().setText("Four Letters"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        counterTextView = (TextView) findViewById(R.id.counterTextView);
+        counterTextView.setVisibility(View.GONE);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
