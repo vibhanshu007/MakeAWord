@@ -18,11 +18,12 @@ import java.util.List;
  * Created by root on 3/1/17.
  */
 
-public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyViewHolder> {
+public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyViewHolder>  {
     public Context mContext;
     private List<CardViewContent> contentList;
     private final List<Integer> selectorList = new ArrayList<Integer>();
     private int selectedPosition;
+
 
 
 
@@ -98,14 +99,14 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         });
 */
 
-
     }
 
     public int getItemCount() {
         return contentList.size();
     }
 
-      static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
+
+    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener,View.OnClickListener{
 
         public TextView imageName;
         public ImageView image;
@@ -113,6 +114,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
           CardView cardView;
           Context context;
           CardViewAdapter cardViewAdapter;
+        MainActivity mainActivity;
 
         public MyViewHolder(CardViewAdapter cardViewAdapter,Context context,View itemView) {
             super(itemView);
@@ -123,6 +125,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox_2);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             cardView.setOnLongClickListener(this);
+            cardView.setOnClickListener(this);
             //Log.e("wordLetters",""+wordLetters);
         }
 
@@ -130,13 +133,20 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         public boolean onLongClick(View view) {
             Log.e("Long click is working","#######");
             ((MainActivity)context).toolbar.getMenu().clear();
-            ((MainActivity)context).setTheme(R.style.Theme_Dark);
+
             ((MainActivity)context).toolbar.inflateMenu(R.menu.toolbar_layout);
             ((MainActivity)context).counterTextView.setVisibility(View.VISIBLE);
+            ((MainActivity)context).toolbar.setTitle("0 Selected Item");
             ((MainActivity)context).is_in_actionMode=true;
             cardViewAdapter.notifyDataSetChanged();
             ((MainActivity)context).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             return true;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Log.e("POSITION","POSITION"+getAdapterPosition());
+            ((MainActivity)context).prepareSelection(view,getAdapterPosition());
         }
     }
     public int getSelectedPosition() {
@@ -146,4 +156,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
     }
+
+
 }

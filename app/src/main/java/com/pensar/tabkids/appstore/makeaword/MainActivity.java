@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ public class MainActivity extends AppCompatActivity  {
 
     Toolbar toolbar;
     ArrayList<CardViewContent> cardViewContents = new ArrayList<>();
+    ArrayList<String> selectedItem = new ArrayList<String>();
     boolean is_in_actionMode= false;
+    int counter = 0;
     TextView counterTextView;
 
     @Override
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity  {
         tabLayout.addTab(tabLayout.newTab().setText("Four Letters"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        counterTextView = (TextView) findViewById(R.id.counterTextView);
+        counterTextView = (TextView) findViewById(R.id.counter_text);
         counterTextView.setVisibility(View.GONE);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -96,5 +99,36 @@ public class MainActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
+    public void prepareSelection(View view,int selectedPosition){
 
+        if (!((CheckBox)view.findViewById(R.id.checkbox_2)).isChecked()){
+            ((CheckBox)view.findViewById(R.id.checkbox_2)).setChecked(true);
+            selectedItem.add(String.valueOf(selectedPosition));
+            counter=counter+1;
+            updateCounter(counter);
+        }else {
+            ((CheckBox)view.findViewById(R.id.checkbox_2)).setChecked(false);
+            selectedItem.remove(String.valueOf(selectedPosition));
+            counter = counter-1;
+            updateCounter(counter);
+        }
+    }
+
+    public void updateCounter(int counter){
+        if (counter==0){
+            counterTextView.setText("0 item Selcted");
+        }else {
+            counterTextView.setText(counter+" item Selected");
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (is_in_actionMode){
+
+        }
+        super.onBackPressed();
+    }
 }
