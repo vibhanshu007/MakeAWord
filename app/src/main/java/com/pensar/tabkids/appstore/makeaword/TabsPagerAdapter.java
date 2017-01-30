@@ -16,6 +16,10 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     int noOfTabs;
     List<CardViewContent> threeLettersContent;
     List<CardViewContent> fourLettersContentList;
+
+
+
+    WordLetters wordLetters1,wordLetters2;
         public TabsPagerAdapter(FragmentManager fm , int NoOfTabs) {
         super(fm);
         this.noOfTabs= NoOfTabs;
@@ -43,15 +47,15 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        WordLetters wordLetters;
+
         switch (position){
             case 0:
-                 wordLetters = WordLetters.getInstance(threeLettersContent);
-                return wordLetters;
+                wordLetters1 = WordLetters.getInstance(threeLettersContent);
+                return wordLetters1;
 
             case 1:
-                 wordLetters = WordLetters.getInstance(fourLettersContentList);
-                return wordLetters;
+                wordLetters2 = WordLetters.getInstance(fourLettersContentList);
+                return wordLetters2;
 
         }
         return null;
@@ -63,6 +67,19 @@ public class TabsPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void selectItem(){
+
+    }
+    public WordLetters getWordLetters(int position) {
+        switch (position){
+            case 0:
+                return wordLetters1;
+
+            case 1:
+                return wordLetters2;
+
+            default:
+                return wordLetters1;
+        }
 
     }
 }

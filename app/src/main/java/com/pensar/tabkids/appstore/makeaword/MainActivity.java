@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,7 +28,11 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<String> selectedItem = new ArrayList<String>();
     boolean is_in_actionMode= false;
     int counter = 0;
+    CardViewAdapter cardViewAdapter ;
     TextView counterTextView;
+    TabsPagerAdapter adapter;
+    ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +49,30 @@ public class MainActivity extends AppCompatActivity  {
         counterTextView = (TextView) findViewById(R.id.counter_text);
         counterTextView.setVisibility(View.GONE);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TabsPagerAdapter adapter = new TabsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager = (ViewPager) findViewById(R.id.pager);
+          adapter = new TabsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
+
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.e("current Item",""+viewPager.getCurrentItem());
+                changeNormalView();
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+               // Log.e("current Item@@@",""+viewPager.getCurrentItem());
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+               // Log.e("current Item@@@",""+viewPager.getCurrentItem());
 
             }
 
@@ -95,25 +107,26 @@ public class MainActivity extends AppCompatActivity  {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == android.R.id.home){
+            changeNormalView();
+        }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
-    public void prepareSelection(View view,int selectedPosition){
 
-        if (!((CheckBox)view.findViewById(R.id.checkbox_2)).isChecked()){
-            ((CheckBox)view.findViewById(R.id.checkbox_2)).setChecked(true);
+    public void prepareSelection(CompoundButton checkBox,int selectedPosition){
+        Log.e("checkBox.isChecked()",""+checkBox.isChecked());
+        if (checkBox.isChecked()){
             selectedItem.add(String.valueOf(selectedPosition));
             counter=counter+1;
             updateCounter(counter);
         }else {
-            ((CheckBox)view.findViewById(R.id.checkbox_2)).setChecked(false);
             selectedItem.remove(String.valueOf(selectedPosition));
             counter = counter-1;
             updateCounter(counter);
         }
     }
-
     public void updateCounter(int counter){
         if (counter==0){
             counterTextView.setText("0 item Selcted");
@@ -123,12 +136,31 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
+
+
+    public void cleanActionMode(){
+        is_in_actionMode=false;
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.menu_main);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        counterTextView.setVisibility(View.GONE);
+        counterTextView.setText("Make A Word");
+        counter=0;
+        selectedItem.clear();
+    }
+
     @Override
     public void onBackPressed() {
 
         if (is_in_actionMode){
-
+            changeNormalView();
+        }else {
+            super.onBackPressed();
         }
-        super.onBackPressed();
     }
+    public void changeNormalView(){
+        cleanActionMode();
+        adapter.getWordLetters(viewPager.getCurrentItem()).updateList();
+    }
+
 }

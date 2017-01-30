@@ -8,6 +8,4 @@
         android:icon="@drawable/start"
         app:showAsAction="always"/>
 
-
-
 </menu>

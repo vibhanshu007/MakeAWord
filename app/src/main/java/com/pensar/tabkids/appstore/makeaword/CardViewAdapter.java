@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -106,24 +107,26 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
     }
 
 
-    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener,View.OnClickListener{
+    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener,View.OnClickListener,CompoundButton.OnCheckedChangeListener{
 
         public TextView imageName;
         public ImageView image;
         public CheckBox checkBox;
-          CardView cardView;
-          Context context;
-          CardViewAdapter cardViewAdapter;
-        MainActivity mainActivity;
+        CardView cardView;
+        Context context;
+        CardViewAdapter cardViewAdapter;
+        View itemView;
 
         public MyViewHolder(CardViewAdapter cardViewAdapter,Context context,View itemView) {
             super(itemView);
             this.context=context;
+            this.itemView=itemView;
             this.cardViewAdapter=cardViewAdapter;
             imageName = (TextView) itemView.findViewById(R.id.card_text);
             image = (ImageView) itemView.findViewById(R.id.card_image);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox_2);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
+            checkBox.setOnCheckedChangeListener(this);
             cardView.setOnLongClickListener(this);
             cardView.setOnClickListener(this);
             //Log.e("wordLetters",""+wordLetters);
@@ -131,9 +134,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
 
         @Override
         public boolean onLongClick(View view) {
-            Log.e("Long click is working","#######");
-            ((MainActivity)context).toolbar.getMenu().clear();
+           // Log.e("Long click is working","#######");
 
+            ((MainActivity)context).toolbar.getMenu().clear();
             ((MainActivity)context).toolbar.inflateMenu(R.menu.toolbar_layout);
             ((MainActivity)context).counterTextView.setVisibility(View.VISIBLE);
             ((MainActivity)context).toolbar.setTitle("0 Selected Item");
@@ -145,10 +148,23 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
 
         @Override
         public void onClick(View view) {
-            Log.e("POSITION","POSITION"+getAdapterPosition());
-            ((MainActivity)context).prepareSelection(view,getAdapterPosition());
+          //  Log.e("POSITION","POSITION"+getAdapterPosition());
+            CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkbox_2);
+            if (!checkBox.isChecked())
+                checkBox.setChecked(true);
+            else
+                checkBox.setChecked(false);
+            //((MainActivity)context).prepareSelection(view,getAdapterPosition());
+
+
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            ((MainActivity)context).prepareSelection(compoundButton,getAdapterPosition());
         }
     }
+
     public int getSelectedPosition() {
         return selectedPosition;
     }

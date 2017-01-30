@@ -8,10 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class WordLetters extends Fragment  {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         threeLettersContent=getArguments().getParcelableArrayList("list");
+        //Log.e("onCreate ","onCreate"+threeLettersContent.size());
 
     }
 
@@ -54,6 +56,8 @@ public class WordLetters extends Fragment  {
         //recyclerView.addItemDecoration(new GridSpacingItemDecoration(getContext(),2,10,true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(cardViewAdapter);
+        Log.e("onCreateView ","onCreateView"+threeLettersContent.size());
+
         return root;
     }
 
@@ -61,6 +65,20 @@ public class WordLetters extends Fragment  {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Log.e("onResume","onResume"+threeLettersContent.size());
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        //Log.e("onPause","onPause"+threeLettersContent.size());
+    }
+
+    public void updateList(){
+        cardViewAdapter.notifyDataSetChanged();
+    }
 
 }
