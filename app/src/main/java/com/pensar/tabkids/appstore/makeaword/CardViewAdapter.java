@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyViewHolder>  {
+
     public Context mContext;
     private List<CardViewContent> contentList;
     private final List<Integer> selectorList = new ArrayList<Integer>();
@@ -116,6 +117,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         Context context;
         CardViewAdapter cardViewAdapter;
         View itemView;
+        ArrayList<Integer> chekedPosition;
 
         public MyViewHolder(CardViewAdapter cardViewAdapter,Context context,View itemView) {
             super(itemView);
@@ -129,6 +131,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
             checkBox.setOnCheckedChangeListener(this);
             cardView.setOnLongClickListener(this);
             cardView.setOnClickListener(this);
+            chekedPosition = new ArrayList<>();
             //Log.e("wordLetters",""+wordLetters);
         }
 
@@ -141,6 +144,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
             ((MainActivity)context).counterTextView.setVisibility(View.VISIBLE);
             ((MainActivity)context).toolbar.setTitle("0 Selected Item");
             ((MainActivity)context).is_in_actionMode=true;
+            ((MainActivity)context).fab.setVisibility(View.VISIBLE);
             cardViewAdapter.notifyDataSetChanged();
             ((MainActivity)context).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             return true;
@@ -150,12 +154,16 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.MyView
         public void onClick(View view) {
           //  Log.e("POSITION","POSITION"+getAdapterPosition());
             CheckBox checkBox=(CheckBox)view.findViewById(R.id.checkbox_2);
-            if (!checkBox.isChecked())
-                checkBox.setChecked(true);
-            else
-                checkBox.setChecked(false);
-            //((MainActivity)context).prepareSelection(view,getAdapterPosition());
+            if (!checkBox.isChecked()){
 
+                checkBox.setChecked(true);
+            }
+            else{
+
+                checkBox.setChecked(false);
+
+            }
+            //((MainActivity)context).prepareSelection(view,getAdapterPosition());
 
         }
 

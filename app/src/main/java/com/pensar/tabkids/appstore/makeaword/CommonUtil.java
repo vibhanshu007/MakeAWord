@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,5 +34,13 @@ public class CommonUtil {
     public static BitmapDrawable getBitmapDrawableFromAsserts(Context context,String filepath){
         return new BitmapDrawable(context.getResources(),getDataFromAsserts(context,filepath));
 
+    }
+    public static void hideSystemUI(View v){
+        v.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 }

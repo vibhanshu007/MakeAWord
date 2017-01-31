@@ -1,5 +1,6 @@
 package com.pensar.tabkids.appstore.makeaword;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<String> selectedItem = new ArrayList<String>();
     boolean is_in_actionMode= false;
     int counter = 0;
-    CardViewAdapter cardViewAdapter ;
+    FloatingActionButton fab;
     TextView counterTextView;
     TabsPagerAdapter adapter;
     ViewPager viewPager;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layOut);
         tabLayout.addTab(tabLayout.newTab().setText("Three Letters"));
@@ -48,12 +50,11 @@ public class MainActivity extends AppCompatActivity  {
 
         counterTextView = (TextView) findViewById(R.id.counter_text);
         counterTextView.setVisibility(View.GONE);
+        fab.setVisibility(View.GONE);
 
         viewPager = (ViewPager) findViewById(R.id.pager);
-          adapter = new TabsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new TabsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-
-
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -79,12 +80,13 @@ public class MainActivity extends AppCompatActivity  {
 
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                Intent intent = new Intent(getApplicationContext(),StartActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity  {
         toolbar.inflateMenu(R.menu.menu_main);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         counterTextView.setVisibility(View.GONE);
+        fab.setVisibility(View.GONE);
         counterTextView.setText("Make A Word");
         counter=0;
         selectedItem.clear();
