@@ -20,12 +20,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.attr.name;
 
 public class MainActivity extends AppCompatActivity  {
 
 
     Toolbar toolbar;
-    ArrayList<CardViewContent> cardViewContents = new ArrayList<>();
+    ArrayList<String> questionImageName;
     ArrayList<String> selectedItem = new ArrayList<String>();
     boolean is_in_actionMode= false;
     int counter = 0;
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity  {
     TextView counterTextView;
     TabsPagerAdapter adapter;
     ViewPager viewPager;
+    CardViewContent cardViewContent;
+    private List<CardViewContent> contentList;
 
 
     @Override
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity  {
         counterTextView = (TextView) findViewById(R.id.counter_text);
         counterTextView.setVisibility(View.GONE);
         fab.setVisibility(View.GONE);
+
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new TabsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -87,6 +93,8 @@ public class MainActivity extends AppCompatActivity  {
                         .setAction("Action", null).show();*/
                 Intent intent = new Intent(getApplicationContext(),StartActivity.class);
                 startActivity(intent);
+
+
             }
         });
     }
@@ -118,7 +126,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
     public void prepareSelection(CompoundButton checkBox,int selectedPosition){
-        Log.e("checkBox.isChecked()",""+checkBox.isChecked());
+        //Log.e("checkBox.isChecked()",""+checkBox.isChecked());
         if (checkBox.isChecked()){
             selectedItem.add(String.valueOf(selectedPosition));
             counter=counter+1;
@@ -135,6 +143,7 @@ public class MainActivity extends AppCompatActivity  {
         }else {
             counterTextView.setText(counter+" item Selected");
         }
+        Log.e("Selected List","Slected List" +selectedItem);
 
     }
 
